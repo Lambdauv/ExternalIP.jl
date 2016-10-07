@@ -17,11 +17,11 @@ end
 
 @static if is_windows()
     function parseoutput(r)
-        String(readavailable(r))
+        String(readline(r))
     end
 else
     function parseoutput(r)
-        strip(String(readavailable(r)))
+        strip(String(readline(r)))
     end
 end
 
