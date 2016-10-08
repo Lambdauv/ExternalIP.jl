@@ -9,19 +9,18 @@ end
 function externalIP()
     stdout = STDOUT
 
-    r,w = redirect_stdout()
-    run(sh)
-    redirect_stdout(stdout)
-    parseoutput(r)
+    p = Pipe()
+    run(pipeline(sh, stdout=p))
+    parseoutput(p)
 end
 
 @static if is_windows()
-    function parseoutput(r)
-        String(readline(r))
+    function parseoutput(p)
+        String(readline(p))
     end
 else
-    function parseoutput(r)
-        strip(String(readline(r)))
+    function parseoutput(p)
+        strip(String(readline(p)))
     end
 end
 
